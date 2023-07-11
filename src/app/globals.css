@@ -8,7 +8,7 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -24,4 +24,50 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  background-color: rgb(228, 250, 255);
+}
+
+table {
+  width: 90vw;
+}
+
+.item__title {
+  padding: 8px;
+}
+
+.item__title__secondary {
+  padding: 8px;
+  background-color: rgb(132, 200, 255);
+}
+
+.item__data {
+  padding: 8px;
+  width: 100px;
+  text-align: center;
+}
+
+.editable__data {
+  padding: 10px;
+  width: 110px;
+  max-width: 150px;
+  text-align: left;
+}
+
+.text__box {
+  max-width: 80%;
+  background-color: #adffda;
+}
+.button {
+  max-width: 20%;
+}
+
+.item__title__tertiary {
+  padding: 8px;
+  background-color: rgb(75, 164, 253);
 }

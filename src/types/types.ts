@@ -29,3 +29,26 @@ export interface SecondaryVariant {
   discountPercentage: number;
   inventory: number;
 }
+
+export interface SecondaryVariantData {
+  title: string;
+  price: number;
+  discountPercentage: number;
+  inventory: number;
+}
+export interface PrimaryVariantData {
+  title: string;
+  price: number;
+  discountPercentage: number;
+  inventory: number;
+  secondary_variants: SecondaryVariantData[];
+}
+
+export interface RowData {
+  id: number;
+  title: string;
+  price: number;
+  discountPercentage: number;
+  inventory: string;
+  primary_variants?: PrimaryVariantData[];
+}
