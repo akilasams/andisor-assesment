@@ -60,7 +60,7 @@ function TopLevelRow(props: { item: RowData }) {
   };
   if (typeof window !== "undefined") {
     storedItem = JSON.parse(
-      window.localStorage?.getItem(`item-l1-${item.id}`) || "{}"
+      window.sessionStorage?.getItem(`item-l1-${item.id}`) || "{}"
     ) as RowData;
   }
 
@@ -74,7 +74,7 @@ function TopLevelRow(props: { item: RowData }) {
       primary_variants: item.primary_variants,
     };
     if (typeof window !== "undefined") {
-      window.localStorage?.setItem(
+      window.sessionStorage?.setItem(
         `item-l1-${item.id}`,
         JSON.stringify(rowItem)
       );

@@ -18,7 +18,7 @@ function TertiaryLevelRow(props: { item: SecondaryVariantData }) {
   };
   if (typeof window !== "undefined") {
     storedItem = JSON.parse(
-      window?.localStorage.getItem(`item-l3-${item.title}`) || "{}"
+      window?.sessionStorage.getItem(`item-l3-${item.title}`) || "{}"
     ) as SecondaryVariantData;
   }
 
@@ -30,7 +30,7 @@ function TertiaryLevelRow(props: { item: SecondaryVariantData }) {
       inventory: +stock,
     };
     if (typeof window !== "undefined") {
-      window.localStorage.setItem(
+      window.sessionStorage.setItem(
         `item-l3-${item.title}`,
         JSON.stringify(primaryVaraint)
       );

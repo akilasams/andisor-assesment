@@ -41,7 +41,7 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
   };
   if (typeof window !== "undefined") {
     storedItem = JSON.parse(
-      window?.localStorage.getItem(`item-l2-${item.title}`) || "{}"
+      window?.sessionStorage.getItem(`item-l2-${item.title}`) || "{}"
     ) as PrimaryVariantData;
   }
 
@@ -54,7 +54,7 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
       secondary_variants: item.secondary_variants,
     };
     if (typeof window !== "undefined") {
-      window.localStorage?.setItem(
+      window.sessionStorage?.setItem(
         `item-l2-${item.title}`,
         JSON.stringify(primaryVaraint)
       );
