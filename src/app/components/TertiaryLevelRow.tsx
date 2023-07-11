@@ -10,9 +10,17 @@ function TertiaryLevelRow(props: { item: SecondaryVariantData }) {
   const [discount, setDiscount] = useState(item.discountPercentage.toString());
   const [stock, setStock] = useState(item.inventory.toString());
 
-  const storedItem = JSON.parse(
-    window?.localStorage.getItem(`item-l3-${item.title}`) || "{}"
-  ) as SecondaryVariantData;
+  let storedItem: SecondaryVariantData = {
+    title: "",
+    price: 0,
+    discountPercentage: 0,
+    inventory: 0,
+  };
+  if (typeof window !== "undefined") {
+    storedItem = JSON.parse(
+      window?.localStorage.getItem(`item-l3-${item.title}`) || "{}"
+    ) as SecondaryVariantData;
+  }
 
   const handleChange = () => {
     const primaryVaraint: SecondaryVariantData = {
@@ -21,10 +29,12 @@ function TertiaryLevelRow(props: { item: SecondaryVariantData }) {
       discountPercentage: +discount,
       inventory: +stock,
     };
-    window.localStorage.setItem(
-      `item-l3-${item.title}`,
-      JSON.stringify(primaryVaraint)
-    );
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(
+        `item-l3-${item.title}`,
+        JSON.stringify(primaryVaraint)
+      );
+    }
   };
 
   useEffect(() => {

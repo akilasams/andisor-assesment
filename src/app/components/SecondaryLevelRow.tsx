@@ -32,9 +32,18 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
   const [stock, setStock] = useState(item.inventory.toString());
   const [open, setOpen] = useState(false);
 
-  const storedItem = JSON.parse(
-    window?.localStorage.getItem(`item-l2-${item.title}`) || "{}"
-  ) as PrimaryVariantData;
+  let storedItem: PrimaryVariantData = {
+    title: "",
+    price: 0,
+    discountPercentage: 0,
+    inventory: 0,
+    secondary_variants: [],
+  };
+  if (typeof window !== "undefined") {
+    storedItem = JSON.parse(
+      window?.localStorage.getItem(`item-l2-${item.title}`) || "{}"
+    ) as PrimaryVariantData;
+  }
 
   const handleChange = () => {
     const primaryVaraint: PrimaryVariantData = {
@@ -44,10 +53,12 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
       inventory: +stock,
       secondary_variants: item.secondary_variants,
     };
-    window.localStorage.setItem(
-      `item-l2-${item.title}`,
-      JSON.stringify(primaryVaraint)
-    );
+    if (typeof window !== "undefined") {
+      window.localStorage?.setItem(
+        `item-l2-${item.title}`,
+        JSON.stringify(primaryVaraint)
+      );
+    }
   };
 
   useEffect(() => {
@@ -70,7 +81,7 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
           {item.title}
         </td>
         <EditableCell
-          text={storedItem.discountPercentage?.toString() || price}
+          text={storedItem.price?.toString() || price}
           type="currency"
           setValueInObject={setPrice}
         />
@@ -79,7 +90,10 @@ function SecondaryLevelRow(props: { item: PrimaryVariantData }) {
           type="percentage"
           setValueInObject={setDiscount}
         />
-        <EditableCell text={stock} setValueInObject={setStock} />
+        <EditableCell
+          text={storedItem.inventory?.toString() || stock}
+          setValueInObject={setStock}
+        />
         <td className="item__data"></td>
         <td className="item__data">{secondaryVariants.join(",")}</td>
       </tr>

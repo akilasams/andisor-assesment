@@ -51,9 +51,18 @@ function TopLevelRow(props: { item: RowData }) {
   const [colors, setColors] = useState<Array<string>>();
   const [sizes, setSizes] = useState<Array<string>>();
 
-  const storedItem = JSON.parse(
-    window?.localStorage.getItem(`item-l1-${item.id}`) || "{}"
-  ) as RowData;
+  let storedItem: RowData = {
+    id: 0,
+    title: "",
+    price: 0,
+    discountPercentage: 0,
+    inventory: "",
+  };
+  if (typeof window !== "undefined") {
+    storedItem = JSON.parse(
+      window.localStorage?.getItem(`item-l1-${item.id}`) || "{}"
+    ) as RowData;
+  }
 
   const handleChange = () => {
     const rowItem = {
@@ -64,7 +73,12 @@ function TopLevelRow(props: { item: RowData }) {
       inventory: stock,
       primary_variants: item.primary_variants,
     };
-    window.localStorage.setItem(`item-l1-${item.id}`, JSON.stringify(rowItem));
+    if (typeof window !== "undefined") {
+      window.localStorage?.setItem(
+        `item-l1-${item.id}`,
+        JSON.stringify(rowItem)
+      );
+    }
   };
 
   useEffect(() => {
